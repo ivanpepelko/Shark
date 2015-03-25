@@ -187,5 +187,9 @@ namespace Shark {
             SetFileBrowserDirectory(CurrentDir + @"\..");
         }
 
+        private void listToolStripMenuItem_Click(object sender, EventArgs e) {
+            filesListView.View = View.List;
+        }
+
     }
 }
