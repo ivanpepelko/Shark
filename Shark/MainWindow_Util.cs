@@ -47,14 +47,14 @@ namespace Shark {
                     Cursor = Cursors.Default;
 
 
-                } catch (System.IO.IOException ex) {
+                } catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Cursor = Cursors.Default;
                 }
             } else {
                 try {
-                    System.Diagnostics.Process.Start(CurrentDir + @"\" + filesListView.FocusedItem.Text);
-                } catch (Win32Exception ex) {
+                    System.Diagnostics.Process.Start(getFullFileName(filesListView.FocusedItem.Text));
+                } catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 

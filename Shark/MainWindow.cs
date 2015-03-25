@@ -20,13 +20,23 @@ namespace Shark {
 
         public MainWindow() {
             InitializeComponent();
-            InitializeIcons();
+            Icons = new ImageList();
+
+            Icons.Images.Add("folder", Properties.Resources.folder);
+
+            filesListView.LargeImageList = Icons;
+            filesListView.SmallImageList = Icons;
 
             Home = @"C:\Users\" + Environment.UserName;
             SetFileBrowserDirectory(Home);
 
             InitializePlaces();
             placesTree.ExpandAll();
+
+            filesListView.Columns.AddRange(new ColumnHeader[] {
+                new ColumnHeader() { Text = "File Name"},
+                new ColumnHeader() { Text = "Size"},
+            });
         }
 
         private void MainWindow_Resize(object sender, EventArgs e) {
@@ -39,15 +49,6 @@ namespace Shark {
             filesListView.Width = Width - placesTree.Width - 42;
             currentPathTextBox.Width = filesListView.Width;
             filesListView.Height = placesTree.Height;
-        }
-
-        private void InitializeIcons() {
-            Icons = new ImageList();
-
-            Icons.Images.Add("folder", Properties.Resources.folder);
-
-            filesListView.LargeImageList = Icons;
-            filesListView.SmallImageList = Icons;
         }
 
         private void smallIconsToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -66,7 +67,7 @@ namespace Shark {
             FileInfo finfo = new FileInfo(fullname);
 
             if (!finfo.Attributes.HasFlag(FileAttributes.Directory) && !isMultiSelect) {
-                
+
                 quickPropertiesLabel.Text = string.Format(
                     "Name: {0}. {1}",
                     finfo.Name,
@@ -143,6 +144,27 @@ namespace Shark {
         private void listToolStripMenuItem_Click(object sender, EventArgs e) {
             filesListView.View = View.List;
         }
-                        
+
+        private void detailsToolStripMenuItem_Click(object sender, EventArgs e) {
+            filesListView.View = View.Details;
+            foreach (ColumnHeader ch in filesListView.Columns) {
+
+                int maxlen = (from ListViewItem lvi in filesListView.Items
+                              select lvi.Text.Length).Max();
+
+                ch.Width = (int)Font.Size * maxlen;
+            }
+        }
+
+        private void filesListView_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.KeyCode) {
+                case Keys.C:
+                    if (ModifierKeys.HasFlag(Keys.Control))
+                        copyToolStripMenuItem_Click(sender, e);
+                    MessageBox.Show("File copied to clipboard");
+                    break;
+            }
+        }
+
     }
 }

@@ -32,6 +32,7 @@
             this.smallIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.largeIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filesListView = new System.Windows.Forms.ListView();
             this.placesTree = new System.Windows.Forms.TreeView();
             this.fileStatus = new System.Windows.Forms.StatusStrip();
@@ -56,7 +57,8 @@
             this.upToolStripMenuItem,
             this.smallIconsToolStripMenuItem,
             this.largeIconsToolStripMenuItem,
-            this.listToolStripMenuItem});
+            this.listToolStripMenuItem,
+            this.detailsToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(784, 24);
@@ -109,6 +111,13 @@
             this.listToolStripMenuItem.Text = "list";
             this.listToolStripMenuItem.Click += new System.EventHandler(this.listToolStripMenuItem_Click);
             // 
+            // detailsToolStripMenuItem
+            // 
+            this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.detailsToolStripMenuItem.Text = "details";
+            this.detailsToolStripMenuItem.Click += new System.EventHandler(this.detailsToolStripMenuItem_Click);
+            // 
             // filesListView
             // 
             this.filesListView.Location = new System.Drawing.Point(192, 49);
@@ -118,6 +127,7 @@
             this.filesListView.UseCompatibleStateImageBehavior = false;
             this.filesListView.View = System.Windows.Forms.View.List;
             this.filesListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.filesListView_ItemSelectionChanged);
+            this.filesListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filesListView_KeyDown);
             this.filesListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.filesListView_MouseClick);
             this.filesListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.filesListView_MouseDoubleClick);
             // 
@@ -147,7 +157,7 @@
             // labelPlaces
             // 
             this.labelPlaces.AutoSize = true;
-            this.labelPlaces.Location = new System.Drawing.Point(12, 26);
+            this.labelPlaces.Location = new System.Drawing.Point(12, 33);
             this.labelPlaces.Name = "labelPlaces";
             this.labelPlaces.Size = new System.Drawing.Size(39, 13);
             this.labelPlaces.TabIndex = 5;
@@ -244,6 +254,7 @@
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem messageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
 
     }
 }
