@@ -17,7 +17,6 @@ namespace Shark {
         string Home;
         string CurrentDir;
         ImageList Icons;
-        public const string FS = @"\";
 
         public MainWindow() {
             InitializeComponent();
@@ -59,78 +58,32 @@ namespace Shark {
             filesListView.View = View.LargeIcon;
         }
 
-        private void SetFileBrowserDirectory(string dir) {
-            DirectoryInfo dirinfo = new DirectoryInfo(dir);
-
-            if (dirinfo.Attributes.HasFlag(FileAttributes.Directory)) {
-
-                filesListView.Items.Clear();
-                Cursor = Cursors.WaitCursor;
-
-                try {
-                    CurrentDir = dirinfo.FullName;
-                    currentPathTextBox.Text = CurrentDir;
-
-                    foreach (DirectoryInfo dinfo in dirinfo.GetDirectories()) {
-                        if (!dinfo.Attributes.HasFlag(FileAttributes.Hidden)) {
-                            filesListView.Items.Add(dinfo.Name, Icons.Images.IndexOfKey("folder"));
-                        }
-                    }
-                    foreach (FileInfo finfo in dirinfo.GetFiles()) {
-                        if (!finfo.Attributes.HasFlag(FileAttributes.Hidden)) {
-                            string ext = finfo.Extension;
-
-                            Icons.Images.Add(ext, Icon.ExtractAssociatedIcon(finfo.FullName));
-                            filesListView.Items.Add(finfo.Name, Icons.Images.IndexOfKey(ext));
-                        }
-                    }
-                    Cursor = Cursors.Default;
-
-
-                } catch (System.IO.IOException ex) {
-                    MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Cursor = Cursors.Default;
-                }
-            } else {
-                try {
-                    System.Diagnostics.Process.Start(CurrentDir + @"\" + filesListView.FocusedItem.Text);
-                } catch (Win32Exception ex) {
-                    MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-            }
-        }
-
         private void filesListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e) {
-            //todo
-            string fullname = CurrentDir + FS + e.Item.Text;
+
+            string fullname = CurrentDir + @"\" + e.Item.Text;
             bool isMultiSelect = (filesListView.SelectedItems.Count > 1);
 
             FileInfo finfo = new FileInfo(fullname);
 
             if (!finfo.Attributes.HasFlag(FileAttributes.Directory) && !isMultiSelect) {
-
-                long size = finfo.Length;
-                int order = 0;
-
-                while (size > 1024) {
-                    size /= 1024;
-                    order++;
-                };
-
-                string[] units = new string[] { "bytes", "KB", "MB", "GB" };
-
+                
                 quickPropertiesLabel.Text = string.Format(
-                    "Name: {0}    Size: {1} {2}",
+                    "Name: {0}. {1}",
                     finfo.Name,
-                    Math.Round(finfo.Length / Math.Pow(1024, order), 2),
-                    units[order]
+                    getSelectedItemsSizeString()
                 );
+
             } else if (finfo.Attributes.HasFlag(FileAttributes.Directory) && !isMultiSelect) {
+                quickPropertiesLabel.Text = string.Format("Name: {0}", finfo.Name);
+
             } else if (isMultiSelect) {
-                quickPropertiesLabel.Text = string.Format("{0} items selected.", filesListView.SelectedItems.Count);
+                quickPropertiesLabel.Text = string.Format("{0} items selected. {1}",
+                    filesListView.SelectedItems.Count,
+                    getSelectedItemsSizeString());
             }
 
+            if (filesListView.SelectedItems.Count == 0)
+                quickPropertiesLabel.Text = "";
 
         }
 
@@ -190,6 +143,6 @@ namespace Shark {
         private void listToolStripMenuItem_Click(object sender, EventArgs e) {
             filesListView.View = View.List;
         }
-
+                        
     }
 }

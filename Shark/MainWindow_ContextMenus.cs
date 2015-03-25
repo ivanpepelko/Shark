@@ -17,7 +17,7 @@ namespace Shark {
 
             StringCollection cplist = new StringCollection();
             foreach (ListViewItem fl in filesListView.SelectedItems) {
-                cplist.Add(CurrentDir + @"\" + fl.Text);
+                cplist.Add(getFullFileName(fl.Text));
             }
 
             Clipboard.SetFileDropList(cplist);

@@ -31,6 +31,7 @@
             this.upToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smallIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.largeIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filesListView = new System.Windows.Forms.ListView();
             this.placesTree = new System.Windows.Forms.TreeView();
             this.fileStatus = new System.Windows.Forms.StatusStrip();
@@ -42,7 +43,6 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.messageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.fileStatus.SuspendLayout();
             this.contextMenu.SuspendLayout();
@@ -101,6 +101,13 @@
             this.largeIconsToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.largeIconsToolStripMenuItem.Text = "largeIcons";
             this.largeIconsToolStripMenuItem.Click += new System.EventHandler(this.largeIconsToolStripMenuItem_Click);
+            // 
+            // listToolStripMenuItem
+            // 
+            this.listToolStripMenuItem.Name = "listToolStripMenuItem";
+            this.listToolStripMenuItem.Size = new System.Drawing.Size(34, 20);
+            this.listToolStripMenuItem.Text = "list";
+            this.listToolStripMenuItem.Click += new System.EventHandler(this.listToolStripMenuItem_Click);
             // 
             // filesListView
             // 
@@ -188,13 +195,6 @@
             this.messageToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.messageToolStripMenuItem.Text = "Message";
             this.messageToolStripMenuItem.Click += new System.EventHandler(this.messageToolStripMenuItem_Click);
-            // 
-            // listToolStripMenuItem
-            // 
-            this.listToolStripMenuItem.Name = "listToolStripMenuItem";
-            this.listToolStripMenuItem.Size = new System.Drawing.Size(34, 20);
-            this.listToolStripMenuItem.Text = "list";
-            this.listToolStripMenuItem.Click += new System.EventHandler(this.listToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
