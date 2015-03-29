@@ -49,21 +49,6 @@ namespace Shark {
                         forwardToolStripMenuItem.Enabled = false;
                     }
 
-                    Console.WriteLine("bflistindex: {0};", BFListIndex);
-                    Pepelko.DebugInfo.printf(BFList);
-
-                    /* back- forward
-                    if (!IsBack && !IsForward) {
-                        BFList.Add(CurrentDir);
-                        ForwardList.Clear();
-                    }
-                    if (BFList.Count > 1)
-                        backToolStripMenuItem.Enabled = true;
-                    if (ForwardList.Count < 0)
-                        backToolStripMenuItem.Enabled = false;
-
-                    //*/
-
                     foreach (DirectoryInfo dinfo in dirinfo.GetDirectories()) {
                         if (!dinfo.Attributes.HasFlag(FileAttributes.Hidden)) {
                             filesListView.Items.Add(dinfo.Name, Icons.Images.IndexOfKey("folder"));
@@ -108,11 +93,11 @@ namespace Shark {
 
             }
 
-            int order = 0;
+            int magnitude = 0;
 
             while (size_bytes > 1024) {
                 size_bytes /= 1024;
-                order++;
+                magnitude++;
             };
 
             string[] units = new string[] { "bytes", "KB", "MB", "GB" };
@@ -120,12 +105,12 @@ namespace Shark {
             if (filesListView.SelectedItems.Count == 1) {
                 return string.Format("Size: {0} {1}",
                     Math.Round(size_bytes, 2),
-                    units[order]);
+                    units[magnitude]);
             } else {
                 return string.Format("{0} files selected, total size of files: {1} {2}",
                     files_count,
                     Math.Round(size_bytes, 2),
-                    units[order]);
+                    units[magnitude]);
             }
 
         }
@@ -144,6 +129,25 @@ namespace Shark {
 
             return string.Format("{0} folders selected.", count);
 
+        }
+
+        private string getSizeString(FileInfo finfo) {
+
+            if (finfo.Attributes.HasFlag(FileAttributes.Directory)) {
+                throw new Exception("directory");
+            }
+
+            double size_bytes = finfo.Length;
+            int magnitude = 0;
+
+            while (size_bytes > 1024) {
+                size_bytes /= 1024;
+                magnitude++;
+            };
+
+            string[] units = new string[] { "bytes", "KB", "MB", "GB" };
+
+            return string.Format("Size: {0} {1}", Math.Round(size_bytes, 2), units[magnitude]);
         }
 
     }

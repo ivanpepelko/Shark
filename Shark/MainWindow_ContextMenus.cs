@@ -24,8 +24,26 @@ namespace Shark {
 
         }
 
-        private void messageToolStripMenuItem_Click(object sender, EventArgs e) {
-            MessageBox.Show(filesListView.FocusedItem.Text);
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e) {
+            FileInfo finfo = new FileInfo(getFullFileName(filesListView.FocusedItem.Text));
+
+            if (!finfo.Attributes.HasFlag(FileAttributes.Directory)) {
+                string properties = string.Format("Name: {0}\n{1}\nFolder: {2}\nCreated: {3}\nModified: {4}\nAccessed: {5}\nAttributes: {6}",
+                    finfo.Name,
+                    getSizeString(finfo),
+                    finfo.Directory,
+                    finfo.CreationTime,
+                    finfo.LastWriteTime,
+                    finfo.LastAccessTime,
+                    finfo.Attributes.ToString()
+                    );
+
+                MessageBox.Show(properties, "Properties");
+            } else {
+                DirectoryInfo dinfo = new DirectoryInfo(finfo.FullName);
+                MessageBox.Show("directory: " + dinfo.Name);
+            }
+
         }
 
         private void filesListView_MouseDoubleClick(object sender, MouseEventArgs e) {

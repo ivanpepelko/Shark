@@ -15,7 +15,6 @@ namespace Shark {
 
         List<string> BFList = new List<string>();
         int BFListIndex = -1;
-        List<string> ForwardList = new List<string>();
         bool IsBack = false;
         bool IsForward = false;
         string Home;
@@ -185,6 +184,6 @@ namespace Shark {
             SetFileBrowserDirectory(BFList[BFListIndex]);
             IsForward = false;
         }
-
+        
     }
 }
