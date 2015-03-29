@@ -68,10 +68,12 @@
             // backToolStripMenuItem
             // 
             this.backToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.backToolStripMenuItem.Enabled = false;
             this.backToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("backToolStripMenuItem.Image")));
             this.backToolStripMenuItem.Name = "backToolStripMenuItem";
             this.backToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
             this.backToolStripMenuItem.Text = "back";
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
             // 
             // forwardToolStripMenuItem
             // 
@@ -157,7 +159,7 @@
             // labelPlaces
             // 
             this.labelPlaces.AutoSize = true;
-            this.labelPlaces.Location = new System.Drawing.Point(12, 33);
+            this.labelPlaces.Location = new System.Drawing.Point(12, 30);
             this.labelPlaces.Name = "labelPlaces";
             this.labelPlaces.Size = new System.Drawing.Size(39, 13);
             this.labelPlaces.TabIndex = 5;

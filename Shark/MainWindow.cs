@@ -13,10 +13,12 @@ using System.Collections.Specialized;
 namespace Shark {
     public partial class MainWindow : Form {
 
-        List<string> Folders = new List<string>();
+        List<string> BackList = new List<string>();
+        List<string> ForwardList = new List<string>();
         string Home;
         string CurrentDir;
         ImageList Icons;
+        bool IsBack = false;
 
         public MainWindow() {
             InitializeComponent();
@@ -164,6 +166,20 @@ namespace Shark {
                     MessageBox.Show("File copied to clipboard");
                     break;
             }
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e) {
+            IsBack = true;
+            if (BackList.Count > 1) {
+                ForwardList.Add(BackList.Last());
+                SetFileBrowserDirectory(BackList.Last());
+                BackList.RemoveAt(BackList.Count - 1);
+            } else if (BackList.Count == 1) {
+                ForwardList.Add(BackList.Last());
+                SetFileBrowserDirectory(BackList.Last());
+                backToolStripMenuItem.Enabled = false;
+            }
+            IsBack = false;
         }
 
     }

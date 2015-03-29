@@ -29,6 +29,11 @@ namespace Shark {
                 try {
                     CurrentDir = dirinfo.FullName;
                     currentPathTextBox.Text = CurrentDir;
+                    if (!IsBack)
+                        BackList.Add(CurrentDir);
+                    if (BackList.Count > 1)
+                        backToolStripMenuItem.Enabled = true;
+                    Pepelko.DebugInfo.printf(BackList);
 
                     foreach (DirectoryInfo dinfo in dirinfo.GetDirectories()) {
                         if (!dinfo.Attributes.HasFlag(FileAttributes.Hidden)) {
@@ -45,7 +50,6 @@ namespace Shark {
                     }
 
                     Cursor = Cursors.Default;
-
 
                 } catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
