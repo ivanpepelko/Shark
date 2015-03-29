@@ -29,11 +29,40 @@ namespace Shark {
                 try {
                     CurrentDir = dirinfo.FullName;
                     currentPathTextBox.Text = CurrentDir;
-                    if (!IsBack)
-                        BackList.Add(CurrentDir);
-                    if (BackList.Count > 1)
+
+                    if (!IsBack && !IsForward) {
+                        if (BFList.Count > 1 && (BFList.LastIndexOf(BFList.Last()) - BFListIndex) > 0)
+                            BFList.RemoveRange(BFListIndex + 1, BFList.LastIndexOf(BFList.Last()) - BFListIndex);
+                        if (BFList.Count == 0 || BFList.Last() != CurrentDir) {
+                            BFList.Add(CurrentDir);
+                            BFListIndex++;
+                        }
+                    }
+                    if (BFListIndex == 0 || !(BFList.Count > 1)) {
+                        backToolStripMenuItem.Enabled = false;
+                    } else {
                         backToolStripMenuItem.Enabled = true;
-                    Pepelko.DebugInfo.printf(BackList);
+                    }
+                    if ((BFList.Count - 1) > BFListIndex) {
+                        forwardToolStripMenuItem.Enabled = true;
+                    } else {
+                        forwardToolStripMenuItem.Enabled = false;
+                    }
+
+                    Console.WriteLine("bflistindex: {0};", BFListIndex);
+                    Pepelko.DebugInfo.printf(BFList);
+
+                    /* back- forward
+                    if (!IsBack && !IsForward) {
+                        BFList.Add(CurrentDir);
+                        ForwardList.Clear();
+                    }
+                    if (BFList.Count > 1)
+                        backToolStripMenuItem.Enabled = true;
+                    if (ForwardList.Count < 0)
+                        backToolStripMenuItem.Enabled = false;
+
+                    //*/
 
                     foreach (DirectoryInfo dinfo in dirinfo.GetDirectories()) {
                         if (!dinfo.Attributes.HasFlag(FileAttributes.Hidden)) {

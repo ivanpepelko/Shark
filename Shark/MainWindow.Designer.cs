@@ -78,10 +78,12 @@
             // forwardToolStripMenuItem
             // 
             this.forwardToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.forwardToolStripMenuItem.Enabled = false;
             this.forwardToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("forwardToolStripMenuItem.Image")));
             this.forwardToolStripMenuItem.Name = "forwardToolStripMenuItem";
             this.forwardToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
             this.forwardToolStripMenuItem.Text = "forward";
+            this.forwardToolStripMenuItem.Click += new System.EventHandler(this.forwardToolStripMenuItem_Click);
             // 
             // upToolStripMenuItem
             // 

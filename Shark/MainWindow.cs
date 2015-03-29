@@ -13,12 +13,14 @@ using System.Collections.Specialized;
 namespace Shark {
     public partial class MainWindow : Form {
 
-        List<string> BackList = new List<string>();
+        List<string> BFList = new List<string>();
+        int BFListIndex = -1;
         List<string> ForwardList = new List<string>();
+        bool IsBack = false;
+        bool IsForward = false;
         string Home;
         string CurrentDir;
         ImageList Icons;
-        bool IsBack = false;
 
         public MainWindow() {
             InitializeComponent();
@@ -170,16 +172,18 @@ namespace Shark {
 
         private void backToolStripMenuItem_Click(object sender, EventArgs e) {
             IsBack = true;
-            if (BackList.Count > 1) {
-                ForwardList.Add(BackList.Last());
-                SetFileBrowserDirectory(BackList.Last());
-                BackList.RemoveAt(BackList.Count - 1);
-            } else if (BackList.Count == 1) {
-                ForwardList.Add(BackList.Last());
-                SetFileBrowserDirectory(BackList.Last());
-                backToolStripMenuItem.Enabled = false;
+            if (BFList.Count > 0 && BFListIndex > 0) {
+                BFListIndex--;
+                SetFileBrowserDirectory(BFList[BFListIndex]);
             }
             IsBack = false;
+        }
+
+        private void forwardToolStripMenuItem_Click(object sender, EventArgs e) {
+            IsForward = true;
+            BFListIndex++;
+            SetFileBrowserDirectory(BFList[BFListIndex]);
+            IsForward = false;
         }
 
     }
