@@ -55,5 +55,45 @@ namespace Shark {
             if (e.Button == MouseButtons.Right)
                 contextMenu.Show(filesListView, e.Location);
         }
+
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e) {
+            RenameDialog rnd = new RenameDialog();
+            rnd.ShowDialog();
+            SetFileBrowserDirectory(CurrentDir);
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e) {
+            StringCollection rmlist = new StringCollection();
+            string message = "Are you sure you want to delete ";
+            foreach (ListViewItem lvi in filesListView.SelectedItems) {
+                message += (lvi.Text + ", ");
+                rmlist.Add(getFullFileName(lvi.Text));
+            }
+            message = message.Remove(message.LastIndexOf(','));
+            message += "?";
+
+            DialogResult dres = MessageBox.Show(message, "Confirm delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+
+            if (dres == DialogResult.OK) {
+
+                try {
+                    foreach (string file in rmlist) {
+                        FileInfo finfo = new FileInfo(file);
+                        if (finfo.Attributes.HasFlag(FileAttributes.Directory)) {
+                            DirectoryInfo dinfo = new DirectoryInfo(finfo.FullName);
+                            dinfo.Delete(true);
+                        } else {
+                            finfo.Delete();
+                        }
+                    }
+                    SetFileBrowserDirectory(CurrentDir);
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            } else if (dres == DialogResult.Cancel) {
+                return;
+            }
+        }
     }
 }

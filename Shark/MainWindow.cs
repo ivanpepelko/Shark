@@ -18,7 +18,8 @@ namespace Shark {
         bool IsBack = false;
         bool IsForward = false;
         string Home;
-        string CurrentDir;
+        public string CurrentDir;
+
         ImageList Icons;
 
         public MainWindow() {
@@ -184,6 +185,14 @@ namespace Shark {
             SetFileBrowserDirectory(BFList[BFListIndex]);
             IsForward = false;
         }
+
+        private void newFolderToolStripMenuItem_Click(object sender, EventArgs e) {
+            NewFolderDialog nfd = new NewFolderDialog();
+            nfd.ShowDialog(this);
+            SetFileBrowserDirectory(CurrentDir);
+        }
+
         
+
     }
 }

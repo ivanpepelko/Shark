@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace Shark {
     static class Program {
+
+        public static MainWindow mw;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -13,7 +16,8 @@ namespace Shark {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
+            mw = new MainWindow();
+            Application.Run(mw);
         }
     }
 }

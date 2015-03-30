@@ -67,6 +67,8 @@ namespace Shark {
 
                 } catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BFList.RemoveAt(BFListIndex);
+                    BFListIndex--;
                     Cursor = Cursors.Default;
                 }
             } else {
