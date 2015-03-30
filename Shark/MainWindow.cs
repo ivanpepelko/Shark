@@ -37,10 +37,6 @@ namespace Shark {
             InitializePlaces();
             placesTree.ExpandAll();
 
-            filesListView.Columns.AddRange(new ColumnHeader[] {
-                new ColumnHeader() { Text = "File Name"},
-                new ColumnHeader() { Text = "Size"},
-            });
         }
 
         private void MainWindow_Resize(object sender, EventArgs e) {
@@ -166,6 +162,12 @@ namespace Shark {
                     if (ModifierKeys.HasFlag(Keys.Control))
                         copyToolStripMenuItem_Click(sender, e);
                     MessageBox.Show("File copied to clipboard");
+                    break;
+                case Keys.Delete:
+                    deleteToolStripMenuItem_Click(sender, e);
+                    break;
+                case Keys.F2:
+                    renameToolStripMenuItem_Click(sender, e);
                     break;
             }
         }

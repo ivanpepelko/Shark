@@ -47,8 +47,14 @@ namespace Shark {
         }
 
         private void filesListView_MouseDoubleClick(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left)
-                SetFileBrowserDirectory(CurrentDir + @"\" + filesListView.FocusedItem.Text);
+            if (e.Button == MouseButtons.Left) {
+                if (Control.ModifierKeys == Keys.Alt) {
+                    propertiesToolStripMenuItem_Click(sender, e);
+                } else {
+                    SetFileBrowserDirectory(CurrentDir + @"\" + filesListView.FocusedItem.Text);
+                }
+            } 
+
         }
 
         private void filesListView_MouseClick(object sender, MouseEventArgs e) {

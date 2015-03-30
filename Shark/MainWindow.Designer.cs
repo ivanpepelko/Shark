@@ -47,6 +47,8 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.messageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nameHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.sizeHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip.SuspendLayout();
             this.fileStatus.SuspendLayout();
             this.contextMenu.SuspendLayout();
@@ -135,6 +137,9 @@
             // 
             // filesListView
             // 
+            this.filesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameHeader,
+            this.sizeHeader});
             this.filesListView.Location = new System.Drawing.Point(192, 49);
             this.filesListView.Name = "filesListView";
             this.filesListView.Size = new System.Drawing.Size(580, 488);
@@ -195,7 +200,7 @@
             this.renameToolStripMenuItem,
             this.messageToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(153, 158);
+            this.contextMenu.Size = new System.Drawing.Size(128, 136);
             // 
             // cutToolStripMenuItem
             // 
@@ -219,7 +224,7 @@
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -236,6 +241,14 @@
             this.messageToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.messageToolStripMenuItem.Text = "Properties";
             this.messageToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
+            // 
+            // nameHeader
+            // 
+            this.nameHeader.Text = "Name";
+            // 
+            // sizeHeader
+            // 
+            this.sizeHeader.Text = "Size";
             // 
             // MainWindow
             // 
@@ -289,6 +302,8 @@
         private System.Windows.Forms.ToolStripMenuItem newFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader nameHeader;
+        private System.Windows.Forms.ColumnHeader sizeHeader;
 
     }
 }
