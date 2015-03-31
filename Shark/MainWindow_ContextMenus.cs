@@ -53,7 +53,7 @@ namespace Shark {
                 } else {
                     SetFileBrowserDirectory(CurrentDir + @"\" + filesListView.FocusedItem.Text);
                 }
-            } 
+            }
 
         }
 
@@ -100,6 +100,18 @@ namespace Shark {
             } else if (dres == DialogResult.Cancel) {
                 return;
             }
+        }
+
+        private void pasteHereToolStripMenuItem_Click(object sender, EventArgs e) {
+            pasteFile(CurrentDir);
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e) {
+            DirectoryInfo dirinfo = new DirectoryInfo(Path.Combine(CurrentDir, filesListView.FocusedItem.Text));
+            if (dirinfo.Attributes.HasFlag(FileAttributes.Directory))
+                pasteFile(dirinfo.FullName);
+            else
+                return;
         }
     }
 }

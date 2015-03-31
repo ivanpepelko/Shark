@@ -30,6 +30,7 @@ namespace Shark {
                     CurrentDir = dirinfo.FullName;
                     currentPathTextBox.Text = CurrentDir;
 
+                    #region Back&Forward Functionality
                     if (!IsBack && !IsForward) {
                         if (BFList.Count > 1 && (BFList.LastIndexOf(BFList.Last()) - BFListIndex) > 0)
                             BFList.RemoveRange(BFListIndex + 1, BFList.LastIndexOf(BFList.Last()) - BFListIndex);
@@ -48,6 +49,7 @@ namespace Shark {
                     } else {
                         forwardToolStripMenuItem.Enabled = false;
                     }
+                    #endregion
 
                     foreach (DirectoryInfo dinfo in dirinfo.GetDirectories()) {
                         if (!dinfo.Attributes.HasFlag(FileAttributes.Hidden)) {
@@ -152,5 +154,36 @@ namespace Shark {
             return string.Format("Size: {0} {1}", Math.Round(size_bytes, 2), units[magnitude]);
         }
 
+        private Color twist(Color c) {
+            return Color.FromArgb(255 - c.R, 255 - c.G, 255 - c.B);
+        }
+
+        private void changeTheme() {
+            fileStatus.ForeColor = twist(fileStatus.ForeColor);
+            fileStatus.BackColor = twist(fileStatus.BackColor);
+            filesListView.ForeColor = twist(filesListView.ForeColor);
+            filesListView.BackColor = twist(filesListView.BackColor);
+            placesTree.ForeColor = twist(placesTree.ForeColor);
+            placesTree.BackColor = twist(placesTree.BackColor);
+            currentPathTextBox.ForeColor = twist(currentPathTextBox.ForeColor);
+            currentPathTextBox.BackColor = twist(currentPathTextBox.BackColor);
+            menuStrip.ForeColor = twist(menuStrip.ForeColor);
+            menuStrip.BackColor = twist(menuStrip.BackColor);
+            BackColor = twist(BackColor);
+            ForeColor = twist(ForeColor);
+        }
+
+        private void pasteFile(string target) {
+            StringCollection plist = Clipboard.GetFileDropList();
+            foreach (string f in plist) {
+                try {
+                    FileInfo finfo = new FileInfo(f);
+                    finfo.CopyTo(target);
+                    SetFileBrowserDirectory(CurrentDir);
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

@@ -24,6 +24,10 @@ namespace Shark {
 
         public MainWindow() {
             InitializeComponent();
+            menuStrip.Items.Insert(3, new ToolStripSeparator());
+            menuStrip.Items.Insert(7, new ToolStripSeparator());
+            menuStrip.Items.Insert(9, new ToolStripSeparator());
+
             Icons = new ImageList();
 
             Icons.Images.Add("folder", Properties.Resources.folder);
@@ -45,7 +49,7 @@ namespace Shark {
             placesTree.Height = Height - menuStrip.Height - labelPlaces.Height - fileStatus.Height - 60;
 
             filesListView.Location = new Point(placesTree.Width + 16, 49);
-            currentPathTextBox.Location = new Point(placesTree.Width + 16, 23);
+            currentPathTextBox.Location = new Point(placesTree.Width + 16, 25);
             filesListView.Width = Width - placesTree.Width - 42;
             currentPathTextBox.Width = filesListView.Width;
             filesListView.Height = placesTree.Height;
@@ -193,8 +197,6 @@ namespace Shark {
             nfd.ShowDialog(this);
             SetFileBrowserDirectory(CurrentDir);
         }
-
-        
 
     }
 }
