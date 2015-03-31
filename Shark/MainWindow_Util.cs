@@ -178,7 +178,7 @@ namespace Shark {
             foreach (string f in plist) {
                 try {
                     FileInfo finfo = new FileInfo(f);
-                    finfo.CopyTo(target);
+                    finfo.CopyTo(Path.Combine(CurrentDir, finfo.Name));
                     SetFileBrowserDirectory(CurrentDir);
                 } catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
